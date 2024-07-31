@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Menu;
+use App\Models\MenuItem;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -52,4 +54,12 @@ class User extends Authenticatable
         'disable' => 'boolean',
         'is_superadmin' => 'boolean',
     ];
+
+    public function menus(){
+        return $this->hasMany(Menu::class);
+    }
+
+    public function menuItems(){
+        return $this->hasMany(MenuItem::class);
+    }
 }

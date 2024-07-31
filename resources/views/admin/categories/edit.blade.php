@@ -3,7 +3,7 @@
         <h4>Modifier la categorie</h4>
         <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
             @csrf
-            @method('POST')
+            @method('PUT')
             <div class="form-group">
                 <label for="title">Titre</label>
                 <input type="text" name="title" id="title" class="form-control" value="{{ $category->title }}" required>

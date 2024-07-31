@@ -13,7 +13,7 @@
         <h4 class="mb-3">Modifier l'utilisateur</h4>
         <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
             @csrf
-            @method('POST')
+            @method('PUT')
             <div class="form-group">
             <label class="form-label" for="form3Example1n">{{ __('Titre') }}</label>
                 <select class="form-control" aria-label="Default select example" name="title">

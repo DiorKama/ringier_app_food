@@ -71,6 +71,15 @@ class ItemCategorieController extends Controller
     public function destroy($id)
     {
         $category = ItemCategorie::findOrFail($id);
+        
+        // Supprimer tous les menu_items associés aux items de cette catégorie
+        foreach ($category->items as $item) {
+            $item->menuItems()->delete();
+        }
+        // Supprimer tous les items associés
+        $category->items()->delete();
+
+        // Maintenant, supprimer la catégorie
         $category->delete();
 
         return redirect()->route('admin.categories.index')->with('success', 'Category supprimé avec succé.');

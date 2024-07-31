@@ -80,9 +80,14 @@ class RestaurantController extends Controller
     public function destroy($id)
     {
         $restaurant = Restaurant::findOrFail($id);
-        // Supprimer les items associés
+        // Supprimer les menu_items associés aux items du restaurant
+        foreach ($restaurant->items as $item) {
+            $item->menuItems()->delete();
+        }
+        // Supprimer tous les items associés
         $restaurant->items()->delete();
-        // Supprimer le restaurant
+
+        // Maintenant, supprimer le restaurant
         $restaurant->delete();
 
         return redirect()->route('admin.restaurants.index')->with('success', 'Restaurant supprimé avec succé..');
@@ -105,5 +110,11 @@ class RestaurantController extends Controller
 
         return redirect()->route('admin.restaurants.index')->with('success', 'Restaurant activé avec succès.');
     }
+
+    public function getItems(Restaurant $restaurant)
+    {
+        return response()->json($restaurant->items);
+    }
+
 
 }

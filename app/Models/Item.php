@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MenuItem;
 use App\Models\ItemCategorie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,10 +13,16 @@ class Item extends Model
 
     protected $guarded = ['id'];
 
-    public function categories() {
+    public function categories()
+    {
         return $this->belongsTo(ItemCategorie::class, 'item_category_id');
     }
+
     public function restaurants() {
         return $this->belongsTo(Restaurant::class, 'restaurant_id');
+    }
+
+    public function menuItems(){
+        return $this->hasMany(MenuItem::class);
     }
 }

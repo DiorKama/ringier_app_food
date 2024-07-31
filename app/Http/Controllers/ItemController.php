@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Restaurant;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Models\ItemCategorie;
 
@@ -33,16 +34,18 @@ class ItemController extends Controller
             'price' => 'required|integer|min:0',
         ]);
 
-        $imageName = time().'.'.$request->item_thumb->extension();
-        $request->item_thumb->move(public_path('images'), $imageName);
+        // Enregistrer l'image dans le dossier storage/app/public
+        $imageName = time() . '.' . $request->item_thumb->extension();
+        $request->item_thumb->storeAs('public', $imageName);
 
         $validatedData['slug'] = Str::slug($validatedData['title']);
-        $validatedData['item_thumb'] = 'images/'.$imageName;
+        $validatedData['item_thumb'] = 'storage/' . $imageName;
 
         Item::create($validatedData);
 
-        return redirect()->route('admin.items.index')->with('success', 'Plat créé avec succé.');
+        return redirect()->route('admin.items.index')->with('success', 'Plat créé avec succès.');
     }
+
 
     public function edit($id)
     {
@@ -52,34 +55,47 @@ class ItemController extends Controller
         return view('admin.items.edit', compact('item', 'restaurants', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Item $item)
     {
-        $item = Item::findOrFail($id);
-
+        
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'restaurant_id' => 'required|exists:restaurants,id',
             'item_category_id' => 'required|exists:item_categories,id',
-            'item_thumb' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'item_thumb' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required|integer|min:0',
         ]);
-
         if ($request->hasFile('item_thumb')) {
-            $imageName = time().'.'.$request->item_thumb->extension();
-            $request->item_thumb->move(public_path('images'), $imageName);
-            $validatedData['item_thumb'] = 'images/'.$imageName;
+            // Supprimer l'ancienne image si elle existe
+            if ($item->item_thumb && File::exists(public_path($item->item_thumb))) {
+                File::delete(public_path($item->item_thumb));
+            }
+
+            // Enregistrer la nouvelle image dans le dossier storage/app/public
+            $imageName = time() . '.' . $request->item_thumb->extension();
+            $request->item_thumb->storeAs('public', $imageName);
+            $validatedData['item_thumb'] = 'storage/' . $imageName;
+        } else {
+            // Conserver l'ancienne image si aucune nouvelle image n'est téléchargée
+            $validatedData['item_thumb'] = $item->item_thumb;
         }
 
         $validatedData['slug'] = Str::slug($validatedData['title']);
 
+        // Mise à jour de l'item
         $item->update($validatedData);
 
-        return redirect()->route('admin.items.index')->with('success', 'Plats modifiés avec succé.');
+        return redirect()->route('admin.items.index')->with('success', 'Plat mis à jour avec succès.');
     }
+
 
     public function destroy($id)
     {
         $item = Item::findOrFail($id);
+        // Supprimer tous les menuItems associés à cet item
+        $item->menuItems()->delete();
+
+        // Maintenant, supprimer l'item
         $item->delete();
 
         return redirect()->route('admin.items.index')->with('success', 'Plats supprimés avec succé.');

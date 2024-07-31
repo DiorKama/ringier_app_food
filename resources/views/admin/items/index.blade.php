@@ -29,6 +29,7 @@
                                 <img src="{{ asset($item->item_thumb) }}" alt="Item Thumbnail" width="50">
                             @endif
                         </td>
+                        
                         <td>{{ $item->restaurants->title }}</td>
                         <td>{{ $item->categories->title }}</td>
                         <td>{{ $item->price }}</td>

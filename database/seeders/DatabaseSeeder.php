@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ItemSeeder;
+use Database\Seeders\MenuSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\MenuItemSeeder;
 use Database\Seeders\RestaurantSeeder;
 use Database\Seeders\ItemCategorieSeeder;
 
@@ -26,5 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call([RestaurantSeeder::class,]);
         $this->call([ItemCategorieSeeder::class,]);
         $this->call([ItemSeeder::class,]);
+        $this->call([MenuSeeder::class,]);
+        $this->call([MenuItemSeeder::class,]);
     }
 }

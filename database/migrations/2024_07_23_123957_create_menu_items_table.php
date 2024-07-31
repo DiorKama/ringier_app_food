@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->date('validated_date')->nullable();
-            $table->date('closing_date')->nullable();
             $table->foreignId('user_id')->constrained();
-            $table->boolean('active')->default(1);
+            $table->foreignId('menu_id')->constrained();
+            $table->foreignId('item_id')->constrained();
+            $table->integer('price')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('menu_items');
     }
 };

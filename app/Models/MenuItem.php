@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Item;
+use App\Models\Menu;
 use App\Models\User;
-use App\Models\MenuItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Menu extends Model
+class MenuItem extends Model
 {
     use HasFactory;
 
@@ -16,9 +17,13 @@ class Menu extends Model
     public function users() {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
-    public function menuItems(){
-        return $this->hasMany(MenuItem::class);
+
+    public function menus() {
+        return $this->belongsTo(Menu::class, 'menu_id');
+    }
+
+    public function items() {
+        return $this->belongsTo(Item::class, 'item_id');
     }
 
 }

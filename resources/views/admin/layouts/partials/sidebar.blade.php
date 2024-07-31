@@ -8,7 +8,31 @@
     <div class="sidebar">
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+         
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+              <p>
+                 Menus
+                <i class="fas fa-angle-left pull-right"></i>
+              </p>
+            </a>
+            <ul class="treeview-menu menu-open" style="display: block;">
+              <li class="nav-item">
+                <a href="{{ route('admin.menus.index') }}" class="nav-link">
+                  <p>Liste Menus</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.menu_items.index') }}" class="nav-link">
+                  <p>Menu du Jour</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
         <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
