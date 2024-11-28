@@ -25,6 +25,8 @@ return new class extends Migration
             $table->datetime('desactivate_date')->nullable();
             $table->boolean('is_superadmin')->default(false);
             $table->string('role')->default('user');
+            $table->float('subvention')->default(0); // La subvention par défaut à 0
+            $table->integer('livraison')->default(0); // La livraison par défaut à 0
             $table->rememberToken();
             $table->timestamps();
         });

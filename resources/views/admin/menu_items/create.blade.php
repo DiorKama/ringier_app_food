@@ -3,12 +3,11 @@
         <h4>Add Menu Item</h4>
         <form action="{{ route('admin.menu_items.store') }}" method="POST">
             @csrf
-            <input type="hidden" name="menu_id" value="{{ $defaultMenuId }}">
-
+            <input type="hidden" name="menu_id" value="{{ $menu->id }}">
             <div class="form-group">
                 <label for="restaurant_id">Restaurant</label>
                 <select name="restaurant_id" class="form-control" id="restaurant_id" required>
-                    <option value="">Select a restaurant</option>
+                    <option value="">Selectionnez un restaurant</option>
                     @foreach ($restaurants as $restaurant)
                         <option value="{{ $restaurant->id }}">{{ $restaurant->title }}</option>
                     @endforeach
@@ -41,7 +40,7 @@
             var itemSelect = document.getElementById('item_id');
             
             // Clear the current options
-            itemSelect.innerHTML = '<option value="">Select an item</option>';
+            itemSelect.innerHTML = '<option value="">Selectionnez un plat</option>';
             
             if (restaurantId) {
                 fetch(`/api/restaurants/${restaurantId}/items`)

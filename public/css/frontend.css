@@ -1,0 +1,214 @@
+/* Header and nav bar styles */
+        
+.login-background {
+  background-image: url('/heros.png'); /* Remplacez par le chemin de votre image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Couche de fond pour l’opacité */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Ajustez l'opacité ici */
+  z-index: 1;
+}
+
+/* Conteneur du formulaire */
+.form-container {
+  position: relative;
+  z-index: 2; /* Au-dessus de l'arrière-plan */
+  background-color: rgba(255, 255, 255, 0.5); /* Couleur de fond du formulaire avec opacité */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Effet d'ombre */
+  width: 100%; /* Largeur par défaut */
+  max-width: 400px;
+}
+
+.background-image {
+  background-image: url('/heros.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité ici */
+  z-index: 2;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 100%; /* Largeur par défaut */
+  max-width: 500px;
+}
+
+.reset-background {
+  background-image: url('/heros.png'); /* Remplacez par le chemin de votre image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.commandeDay{
+  width: 100%; 
+}
+
+  .footer {
+    background-image: url('/footer.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    color: #fff; 
+    text-align: center; 
+    height: 30vh; 
+    position: relative; 
+    bottom: 0; 
+    width: 100%; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+  }
+  
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1; 
+  }
+  
+  .footer p {
+    position: relative; 
+    z-index: 2; 
+  }
+  
+  .container-footer {
+    max-width: 1200px;
+    margin: 0 auto; 
+    padding: 0 15px; 
+  }
+
+
+  .body-hr{
+    border: none;
+    border-top: 1px #dc3545;
+    width: 40px;
+    margin: auto;
+  }
+
+  .invoice-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.invoice-header {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.invoice-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.restaurant-name {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.item-list {
+    margin-left: 10px;
+}
+
+.item-list p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.item-title {
+    font-weight: bold;
+}
+
+.total-section {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 2px solid #007bff;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.total-amount {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+.circle-timer {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(
+      #dc3545 0deg, 
+      #dc3545 var(--angle, 0deg), 
+      lightgray var(--angle, 0deg)
+  );
+}
+
+.timer-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #dc3545;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+}
+
+.payment-icon {
+  width: 40px; 
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain; 
+}
+
+
+  

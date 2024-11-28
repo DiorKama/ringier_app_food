@@ -1,0 +1,36 @@
+.restaurant-report {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+.restaurant-report h4 {
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+}
+
+.table thead th {
+    text-align: center;
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table td, .table th {
+    text-align: center;
+    padding: 10px;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.btn {
+    margin-left: 5px !important; 
+}
+
+.align-items-center {
+    align-items: center !important; /* Force l'alignement au centre */
+}

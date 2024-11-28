@@ -7,7 +7,10 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\ItemSeeder;
 use Database\Seeders\MenuSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\OrderSeeder;
+use Database\Seeders\PaymentSeeder;
 use Database\Seeders\MenuItemSeeder;
+use Database\Seeders\OrderItemSeeder;
 use Database\Seeders\RestaurantSeeder;
 use Database\Seeders\ItemCategorieSeeder;
 
@@ -30,5 +33,8 @@ class DatabaseSeeder extends Seeder
         $this->call([ItemSeeder::class,]);
         $this->call([MenuSeeder::class,]);
         $this->call([MenuItemSeeder::class,]);
+        $this->call([OrderSeeder::class,]);
+        $this->call([OrderItemSeeder::class,]);
+        $this->call([PaymentSeeder::class,]);
     }
 }

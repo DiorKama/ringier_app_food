@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-        return view('admin.menus.index', compact('menus'));
+         $menus = Menu::all();
+         return view('admin.menus.index', compact('menus'));
+    }
+    
+    public function showMenuOfTheDay()
+    {
+        $menu = Menu::getOfMenuOfTheDay()->first(); 
+        return view('admin.menus.showMenuOfTheDay', ['menu' => $menu]);
     }
 
     public function create()
@@ -71,6 +78,23 @@ class MenuController extends Controller
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu activated successfully.');
     }
+
+
+    // Fonction pour publier le menu
+    public function publish(Request $request)
+    {   
+        $menu = Menu::findOrFail($request->menu_id);
+
+        // Mettre à jour le statut du menu à 'actif'
+        $menu->active = 1;
+        $menu->validated_date = now(); // Optionnel : définir la date de validation
+        $menu->closing_date = now()->addMinutes(30);
+        $menu->save();
+
+        // Rediriger avec un message de succès
+        return redirect()->route('admin.menu_items.index')->with('success', 'Le menu a été publié avec succès.');
+    }
+
 }
 
 

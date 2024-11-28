@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/home';
+    public const HOME = '/dashboard';
 
     public function boot()
     {
@@ -38,14 +38,19 @@ class RouteServiceProvider extends ServiceProvider
     public static function home()
     {
         if (auth()->check()) {
-            if (auth()->user()->role === 'admin') {
-                return '/admin';
-            } elseif (auth()->user()->role === 'user') {
-                return '/user';
+            $role = auth()->user()->role;
+    
+            if ($role === 'admin') {
+                return route('admin.dashboard');
+            } elseif ($role === 'user') {
+                return route('user.dashboard');
             }
         }
-
-        return '/home';
+    
+        return self::HOME;  // Retourne HOME si aucun rôle n'est détecté
     }
+    
+
+
 }
 

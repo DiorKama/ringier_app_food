@@ -4,7 +4,7 @@
         <form action="{{ route('admin.menu_items.update', $menuItem->id) }}" method="POST">
             @csrf
             @method('PUT')
-            <input type="hidden" name="menu_id" value="{{ $defaultMenuId }}">
+            <input type="hidden" name="menu_id" value="{{ $menuItem->menu_id }}">
             <div class="form-group">
                 <label for="restaurant_id">Restaurant</label>
                 <select name="restaurant_id" class="form-control" id="restaurant_id" required>
@@ -42,7 +42,7 @@
             var itemSelect = document.getElementById('item_id');
             
             // Clear the current options
-            itemSelect.innerHTML = '<option value="">Select an item</option>';
+            itemSelect.innerHTML = '<option value="">Selectionnez un plat </option>';
             
             if (restaurantId) {
                 fetch(`/api/restaurants/${restaurantId}/items`)

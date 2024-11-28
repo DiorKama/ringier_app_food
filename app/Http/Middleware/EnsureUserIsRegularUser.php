@@ -8,20 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class EnsureUserIsRegularUser
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && Auth::user()->role === 'user') {
-            return $next($request);
+            return $next($request);  // Si l'utilisateur est 'user', continuer
         }
 
-        return redirect('/dashboard');
+        return redirect('/dashboard');  // Sinon, rediriger vers /dashboard
     }
 }
+
 

@@ -49,6 +49,8 @@
               </li>
             </ul>
           </li>
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fas fa-folder"></i>
@@ -70,6 +72,52 @@
               </li>
             </ul>
           </li>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+              <p>
+                 Commandes
+                <i class="fas fa-angle-left pull-right"></i>
+              </p>
+            </a>
+            <ul class="treeview-menu menu-open" style="display: block;">
+            <li class="nav-item">
+                 <a href="{{ route('admin.order_items.index') }}" class="nav-link">
+                  <p>Commandes du Jour</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                 <a href="{{ route('admin.order_items.listingOrder') }}" class="nav-link">
+                  <p>Commandes Totales</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+              <p>
+                 Reporting
+                <i class="fas fa-angle-left pull-right"></i>
+              </p>
+            </a>
+            <ul class="treeview-menu menu-open" style="display: block;">
+            <li class="nav-item">
+                 <a href="{{ route('admin.reports.monthly') }}" class="nav-link">
+                  <p>Commandes mensuelles</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                 <a href="{{ route('admin.reportRestaurants.monthly')}}" class="nav-link">
+                  <p>Rapports</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -90,7 +138,24 @@
                 </a>
               </li>
             </ul>
-          </li>   
+          </li> 
+          
+          <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <p>
+                        {{ __('Paramètres') }}
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="treeview-menu menu-open" style="display: block;">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                            <p>{{ __('Voir les paramètres') }}</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

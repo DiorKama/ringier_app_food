@@ -42,13 +42,13 @@ class AdminController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'utilisateur a été bien crée.');
     }
 
-    public function listUsers()
-    {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
-    }
+        public function listUsers()
+        {
+            $users = User::all();
+            return view('admin.users.index', compact('users'));
+        }
 
-    public function makeAdmin(Request $request, $id)
+        public function makeAdmin(Request $request, $id)
         {
             $user = User::findOrFail($id);
             $user->role = 'admin';
@@ -58,23 +58,23 @@ class AdminController extends Controller
             return redirect()->route('admin.users.index')->with('success', 'User is now an admin.');
         }
 
-    public function revokeAdmin(Request $request, $id)
-        {
+        public function revokeAdmin(Request $request, $id)
+         {
             $user = User::findOrFail($id);
             $user->role = 'user';
             $user->is_superadmin = false;
             $user->save();
 
             return redirect()->route('admin.users.index')->with('success', 'Admin role has been revoked.');
-        }
+         }
     
-    public function editUserForm($id)
+        public function editUserForm($id)
         {
             $user = User::findOrFail($id);
             return view('admin.users.edit', compact('user'));
         }
 
-    public function updateUser(Request $request, $id)
+        public function updateUser(Request $request, $id)
         {
             $user = User::findOrFail($id);
             $request->validate([
@@ -97,11 +97,38 @@ class AdminController extends Controller
             return redirect()->route('admin.users.index')->with('success', 'Utilisateur modifié avec succé.');
         }
 
-    public function deleteUser($id)
+        public function deleteUser($id)
         {
             $user = User::findOrFail($id);
             $user->delete();
-
             return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succé.');
+        }
+
+        public function adjustSubvention(Request $request, $id)
+        {
+            $request->validate([
+                'subvention' => 'required|string',
+            ]);
+
+            $user = User::findOrFail($id);
+
+            // Nettoyer le champ pour enlever le symbole % si présent
+            $subvention = str_replace('%', '', $request->input('subvention'));
+
+            // Enregistrer la subvention dans la base de données
+            $user->subvention = $subvention;
+            $user->save();
+
+            return redirect()->route('admin.users.index')->with('success', 'Subvention ajustée avec succès.');
+        }
+
+
+        public function adjustLivraison(Request $request, $id)
+        {
+            $user = User::findOrFail($id);
+            $user->livraison = $request->input('livraison');
+            $user->save();
+
+            return redirect()->back()->with('success', 'Livraison ajustée avec succès.');
         }
 }
