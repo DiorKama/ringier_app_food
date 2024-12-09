@@ -20,7 +20,7 @@
             <!-- Afficher le bouton Publier le menu si le menu n'est pas encore publié -->
             @if(
                 !$menu->active
-                || !is_null($menu->validated_date)
+                && is_null($menu->validated_date)
             )
                 <form action="{{ route('admin.menu.publish') }}" method="POST" class="mr-2">
                     @csrf
@@ -69,7 +69,8 @@
                 @endif
             </div>
         </div>
-    </div> 
+    </div>
+    @include('admin.order_items.index')
     
     <script>
         // Capture la soumission du formulaire

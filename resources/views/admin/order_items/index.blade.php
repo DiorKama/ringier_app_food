@@ -1,6 +1,28 @@
-<x-master-layout>
-    <div class="container col-12 mt-5 py-3">
+
+    <div class="ml-3">
+
+    <!-- Commandes restaurant du jour -->
+    @if($restaurantOrders->isNotEmpty())
+    <h4>Commandes restaurant du jour</h4>
+        <div class="row">
+            @foreach($restaurantOrders as $restaurantName => $restaurantOrder)
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-danger text-white" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h5>{{ $restaurantName }}</h5>
+                            <hr>
+                            <!-- List of restaurant orders -->
+                            @foreach($restaurantOrder as $order)
+                                <p>{{ $order['item'] }}|{{ $order['quantity'] }}x</p>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+     @endif
         <!-- Commandes utilisateur du jour -->
+        @if($userOrders->isNotEmpty())
         <h4>Commandes utilisateur du jour</h4>
         <div class="row">
             @foreach($userOrders as $userOrder)
@@ -42,27 +64,9 @@
                 </div>
             @endforeach
         </div>
-
-        <!-- Commandes restaurant du jour -->
-        <h4>Commandes restaurant du jour</h4>
-        <div class="row">
-            @foreach($restaurantOrders as $restaurantName => $restaurantOrder)
-                <div class="col-md-3 mb-4">
-                    <div class="card bg-danger text-white" style="max-width: 18rem;">
-                        <div class="card-body">
-                            <h5>{{ $restaurantName }}</h5>
-                            <hr>
-                            <!-- List of restaurant orders -->
-                            @foreach($restaurantOrder as $order)
-                                <p>{{ $order['item'] }}|{{ $order['quantity'] }}x</p>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+        @endif
     </div>
-</x-master-layout>
+
 
 
 

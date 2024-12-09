@@ -21,9 +21,58 @@ class MenuItemController extends Controller
         // Vérifiez si le menu du jour contient des items
         $menuItems = MenuItem::where('menu_id', $menu->id)->with('items.restaurants')->get();
 
+        // Récupérer les commandes du jour avec les utilisateurs et les items de menu
+    $orders = Order::with(['user', 'orderItems.menuItems.items.restaurants'])
+    ->whereDate('created_at', now()->toDateString())  // Filtrer les commandes du jour
+    ->get();
+
+        // Grouper les commandes par utilisateur et cumuler les quantités pour chaque article
+        $userOrders = $orders->groupBy('user.id')->map(function ($userOrders) {
+            $user = $userOrders->first()->user;
+            $items = $userOrders->flatMap(function ($order) {
+                return $order->orderItems->map(function ($orderItem) {
+                    return [
+                        'restaurant' => $orderItem->menuItems->items->restaurants->title,
+                        'item' => $orderItem->menuItems->items->title,
+                        'quantity' => $orderItem->quantity,
+                    ];
+                });
+            })->groupBy('restaurant')->map(function ($items) {
+                return $items->groupBy('item')->map(function ($groupedItems) {
+                    return [
+                        'item' => $groupedItems->first()['item'],
+                        'quantity' => $groupedItems->sum('quantity')
+                    ];
+                });
+            });
+
+            return [
+                'user' => $user,
+                'items' => $items
+            ];
+        });
+
+        // Grouper les commandes par restaurant et cumuler les quantités pour chaque article
+        $restaurantOrders = $orders->flatMap(function ($order) {
+            return $order->orderItems->map(function ($orderItem) {
+                return [
+                    'restaurant' => $orderItem->menuItems->items->restaurants->title,
+                    'item' => $orderItem->menuItems->items->title,
+                    'quantity' => $orderItem->quantity,
+                ];
+            });
+        })->groupBy('restaurant')->map(function ($items) {
+            return $items->groupBy('item')->map(function ($groupedItems) {
+                return [
+                    'item' => $groupedItems->first()['item'],
+                    'quantity' => $groupedItems->sum('quantity')
+                ];
+            });
+        });
+
         
 
-        return view('admin.menu_items.index', compact('menuItems', 'menu'));
+        return view('admin.menu_items.index', compact('menuItems', 'menu', 'orders', 'userOrders', 'restaurantOrders'));
     }
 
     public function create(MenuItem $menuItems)
